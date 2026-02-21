@@ -1,4 +1,7 @@
 package com.bous.calisthenics_app.entity;
 
 public enum ExerciseType {
+    SKILL,
+    STRENGTH,
+    CONDITION
 }
