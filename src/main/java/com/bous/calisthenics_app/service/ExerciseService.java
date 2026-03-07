@@ -22,12 +22,24 @@ public class ExerciseService {
         return exerciseRepository.findAll();
     }
 
+    public Exercise findById(Long id){
+        return exerciseRepository.findById(id).orElseThrow(() -> new RuntimeException("Exercise not found."));
+    }
+
     public Exercise save(Exercise exercise){
-        return exerciseRepository.save(exercise);
+         return exerciseRepository.save(exercise);
     }
 
     public void deleteById(Long id){
         exerciseRepository.deleteById(id);
+    }
+
+    public Exercise update(Long id, Exercise exercise){
+         if(!exerciseRepository.findById(id).isPresent()){
+             throw new RuntimeException("Exercise not found.");
+         }
+         exercise.setId(id);
+         return exerciseRepository.save(exercise);
     }
 
     public List<Exercise> findByDifficultyLevel(DifficultyLevel difficultyLevel) {

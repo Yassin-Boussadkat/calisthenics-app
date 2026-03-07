@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("api/exercises")
+@RequestMapping("/api/exercises")
 @RestController
 public class ExerciseController {
 
@@ -30,6 +30,16 @@ public class ExerciseController {
     public ResponseEntity<Void> delete(@PathVariable Long id){
         exerciseService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Exercise> findById(@PathVariable Long id){
+        return ResponseEntity.ok(exerciseService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Exercise> update(@PathVariable Long id, @RequestBody Exercise exercise){
+        return ResponseEntity.ok(exerciseService.update(id, exercise));
     }
 
     @GetMapping()

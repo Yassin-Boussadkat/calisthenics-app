@@ -1,0 +1,32 @@
+### Post exercise
+POST http://localhost:8080/api/exercises
+Content-Type: application/json
+
+{
+  "name": "Push Up",
+  "description": "Basic push up",
+  "muscleGroups": ["CHEST", "TRICEPS", "SHOULDERS"],
+  "difficultyLevel": "BEGINNER",
+  "exerciseType": "STRENGTH"
+}
+
+### Get all exercises
+GET http://localhost:8080/api/exercises
+
+### Get by i
+GET http://localhost:8080/api/exercises/1
+
+### Should give an error message
+GET http://localhost:8080/api/exercises/999
+
+### Update exercise
+PUT http://localhost:8080/api/exercises/1
+Content-Type: application/json
+
+{
+  "name": "Push Up Updated version",
+  "description": "Updated description",
+  "muscleGroups": ["CHEST", "TRICEPS", "SHOULDERS"],
+  "difficultyLevel": "INTERMEDIATE",
+  "exerciseType": "STRENGTH"
+}
