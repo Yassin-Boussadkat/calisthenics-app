@@ -1,7 +1,11 @@
 package com.bous.calisthenics_app.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class User {
 

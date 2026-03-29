@@ -30,3 +30,19 @@ Content-Type: application/json
   "difficultyLevel": "INTERMEDIATE",
   "exerciseType": "STRENGTH"
 }
+
+### Post training scheme
+POST http://localhost:8080/api/workouts
+Content-Type: application/json
+
+{
+"name": "Beginner Push Day",
+"description": "Basic push day for beginners",
+"difficultyLevel": "BEGINNER",
+"exerciseType": "STRENGTH",
+"exercises": []
+}
+
+### Get all
+GET http://localhost:8080/api/workouts
+
