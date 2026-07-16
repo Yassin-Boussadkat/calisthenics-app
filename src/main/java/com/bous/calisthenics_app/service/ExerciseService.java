@@ -4,6 +4,7 @@ import com.bous.calisthenics_app.entity.DifficultyLevel;
 import com.bous.calisthenics_app.entity.Exercise;
 import com.bous.calisthenics_app.entity.ExerciseType;
 import com.bous.calisthenics_app.entity.MuscleGroup;
+import com.bous.calisthenics_app.exception.ResourceNotFoundException;
 import com.bous.calisthenics_app.repository.ExerciseRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,23 +24,22 @@ public class ExerciseService {
     }
 
     public Exercise findById(Long id){
-        return exerciseRepository.findById(id).orElseThrow(() -> new RuntimeException("Exercise not found."));
+        return exerciseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exercise not found."));
     }
 
     public Exercise save(Exercise exercise){
-         return exerciseRepository.save(exercise);
+        return exerciseRepository.save(exercise);
     }
 
     public void deleteById(Long id){
+        findById(id);
         exerciseRepository.deleteById(id);
     }
 
     public Exercise update(Long id, Exercise exercise){
-         if(!exerciseRepository.findById(id).isPresent()){
-             throw new RuntimeException("Exercise not found.");
-         }
-         exercise.setId(id);
-         return exerciseRepository.save(exercise);
+        findById(id);
+        exercise.setId(id);
+        return exerciseRepository.save(exercise);
     }
 
     public List<Exercise> findByDifficultyLevel(DifficultyLevel difficultyLevel) {

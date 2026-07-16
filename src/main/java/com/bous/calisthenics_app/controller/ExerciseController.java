@@ -5,6 +5,7 @@ import com.bous.calisthenics_app.entity.Exercise;
 import com.bous.calisthenics_app.entity.ExerciseType;
 import com.bous.calisthenics_app.entity.MuscleGroup;
 import com.bous.calisthenics_app.service.ExerciseService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,9 @@ public class ExerciseController {
     }
 
     @PostMapping
-    public ResponseEntity<Exercise> save(@RequestBody Exercise exercise){
-         Exercise savedExercise = exerciseService.save(exercise);
-         return ResponseEntity.status(HttpStatus.CREATED).body(savedExercise);
+    public ResponseEntity<Exercise> save(@Valid @RequestBody Exercise exercise){
+        Exercise savedExercise = exerciseService.save(exercise);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedExercise);
     }
 
     @DeleteMapping("/{id}")
@@ -38,7 +39,7 @@ public class ExerciseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Exercise> update(@PathVariable Long id, @RequestBody Exercise exercise){
+    public ResponseEntity<Exercise> update(@PathVariable Long id, @Valid @RequestBody Exercise exercise){
         return ResponseEntity.ok(exerciseService.update(id, exercise));
     }
 
@@ -47,7 +48,6 @@ public class ExerciseController {
                                                   @RequestParam(value = "difficulty", required = false) DifficultyLevel difficultyLevel,
                                                   @RequestParam(value = "type",required = false) ExerciseType exerciseType,
                                                   @RequestParam(value = "musclegroup", required = false) MuscleGroup muscleGroup){
-
         if(name != null) return ResponseEntity.ok(exerciseService.findByName(name));
         if(difficultyLevel != null) return ResponseEntity.ok(exerciseService.findByDifficultyLevel(difficultyLevel));
         if(exerciseType != null) return ResponseEntity.ok(exerciseService.findByExerciseType(exerciseType));

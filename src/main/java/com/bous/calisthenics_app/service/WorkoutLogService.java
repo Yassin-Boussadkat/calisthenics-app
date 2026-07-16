@@ -1,6 +1,7 @@
 package com.bous.calisthenics_app.service;
 
 import com.bous.calisthenics_app.entity.WorkoutLog;
+import com.bous.calisthenics_app.exception.ResourceNotFoundException;
 import com.bous.calisthenics_app.repository.WorkoutLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class WorkoutLogService {
 
     public WorkoutLog findById(Long id) {
         return workoutLogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("WorkoutLog not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("WorkoutLog not found."));
     }
 
     public List<WorkoutLog> getLogsByUser(Long userId) {
@@ -34,12 +35,13 @@ public class WorkoutLogService {
     }
 
     public WorkoutLog update(Long id, WorkoutLog workoutLog) {
-        workoutLogRepository.findById(id).orElseThrow(() -> new RuntimeException("WorkoutLog not found."));
+        findById(id);
         workoutLog.setId(id);
         return workoutLogRepository.save(workoutLog);
     }
 
     public void deleteById(Long id) {
+        findById(id);
         workoutLogRepository.deleteById(id);
     }
 }

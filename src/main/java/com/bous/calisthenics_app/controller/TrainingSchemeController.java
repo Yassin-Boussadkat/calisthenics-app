@@ -4,9 +4,9 @@ import com.bous.calisthenics_app.entity.DifficultyLevel;
 import com.bous.calisthenics_app.entity.ExerciseType;
 import com.bous.calisthenics_app.entity.TrainingScheme;
 import com.bous.calisthenics_app.service.TrainingSchemeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +23,12 @@ public class TrainingSchemeController {
 
     @GetMapping
     public ResponseEntity<List<TrainingScheme>> findAll(
-            @RequestParam(required = false) DifficultyLevel  difficultyLevel,
+            @RequestParam(required = false) DifficultyLevel difficultyLevel,
             @RequestParam(required = false) ExerciseType type,
             @RequestParam(required = false) String name) {
         if (name != null) return ResponseEntity.ok(trainingSchemeService.findByName(name));
-        if(type != null) return ResponseEntity.ok(trainingSchemeService.findByExerciseType(type));
-        if(difficultyLevel != null) return ResponseEntity.ok(trainingSchemeService.findByDifficultyLevel(difficultyLevel));
+        if (type != null) return ResponseEntity.ok(trainingSchemeService.findByExerciseType(type));
+        if (difficultyLevel != null) return ResponseEntity.ok(trainingSchemeService.findByDifficultyLevel(difficultyLevel));
         return ResponseEntity.ok(trainingSchemeService.findAll());
     }
 
@@ -39,14 +39,12 @@ public class TrainingSchemeController {
     }
 
     @PostMapping
-    public ResponseEntity<TrainingScheme> save(@RequestBody TrainingScheme trainingScheme) {
+    public ResponseEntity<TrainingScheme> save(@Valid @RequestBody TrainingScheme trainingScheme) {
         return ResponseEntity.status(HttpStatus.CREATED).body(trainingSchemeService.save(trainingScheme));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrainingScheme> update(@PathVariable Long id, @RequestBody TrainingScheme trainingScheme) {
+    public ResponseEntity<TrainingScheme> update(@PathVariable Long id, @Valid @RequestBody TrainingScheme trainingScheme) {
         return ResponseEntity.ok(trainingSchemeService.update(id, trainingScheme));
     }
-
-
 }

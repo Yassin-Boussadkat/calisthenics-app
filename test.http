@@ -46,3 +46,14 @@ Content-Type: application/json
 ### Get all
 GET http://localhost:8080/api/workouts
 
+###
+
+POST http://localhost:8080/api/exercises
+Content-Type: application/json
+
+{
+  "name": "Bench Press",
+  "exerciseType": "SKILL",
+  "muscleGroups": ["CHEST"],
+  "difficultyLevel": "ADVANCED"
+}
