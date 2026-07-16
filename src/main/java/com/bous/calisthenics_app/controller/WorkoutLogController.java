@@ -15,13 +15,13 @@ public class WorkoutLogController {
     private final WorkoutLogService workoutLogService;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<WorkoutLog>> getLogsByUser(@PathVariable int userId) {
+    public ResponseEntity<List<WorkoutLog>> getLogsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(workoutLogService.getLogsByUser(userId));
     }
 
     @GetMapping("/user/{userId}/exercise/{exerciseId}")
     public ResponseEntity<List<WorkoutLog>> getLogsByUserAndExercise(
-            @PathVariable int userId,
+            @PathVariable Long userId,
             @PathVariable Long exerciseId) {
         return ResponseEntity.ok(workoutLogService.getLogsByUserAndExercise(userId, exerciseId));
     }
