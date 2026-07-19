@@ -48,11 +48,14 @@ GET http://localhost:8080/api/workouts
 
 ###
 
-POST http://localhost:8080/api/exercises
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "exerciseType": "SKILL",
-  "muscleGroups": ["CHEST"],
-  "difficultyLevel": "ADVANCED"
+  "firstName": "Yassin",
+  "lastName": "Boussadkat",
+  "email": "yassin@mail.com",
+  "password": "ww"
+
+
 }
