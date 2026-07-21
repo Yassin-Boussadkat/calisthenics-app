@@ -59,3 +59,14 @@ Content-Type: application/json
 
 
 }
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "yassin@mail.com",
+  "password": "w"
+
+}
