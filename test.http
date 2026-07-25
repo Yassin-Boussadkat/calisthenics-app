@@ -12,6 +12,7 @@ Content-Type: application/json
 
 ### Get all exercises
 GET http://localhost:8080/api/exercises
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5YXNzaW5AbWFpbC5jb20iLCJpYXQiOjE3ODQ5ODc4NDQsImV4cCI6MTc4NTA3NDI0NH0.Yjy1AKgbFeY0FFv1C21UKlFQ_QlhsRCiAydvKr8_4tJsdPQwb4gCjZCeRDuMfCkbkaEMtK0RhSkZ92ZMgK0JUA
 
 ### Get by i
 GET http://localhost:8080/api/exercises/1
@@ -67,6 +68,6 @@ Content-Type: application/json
 
 {
   "email": "yassin@mail.com",
-  "password": "w"
+  "password": "ww"
 
 }
