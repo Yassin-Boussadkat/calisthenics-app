@@ -34,6 +34,7 @@ Content-Type: application/json
 
 ### Post training scheme
 POST http://localhost:8080/api/workouts
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZGlsQG1haWwuY29tIiwiaWF0IjoxNzg1MDc1NzU5LCJleHAiOjE3ODUxNjIxNTl9.QZlbJOotMHC0QkfU1KTif66YBFQc_ClMHj8CBRVY7eMK36BFv9jpFk7jilBPyoYe8VyaDHn0Ek1m4bG9D66W6g
 Content-Type: application/json
 
 {
@@ -53,9 +54,9 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "firstName": "Yassin",
+  "firstName": "Adil",
   "lastName": "Boussadkat",
-  "email": "yassin@mail.com",
+  "email": "adil@mail.com",
   "password": "ww"
 
 
@@ -67,7 +68,7 @@ POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "yassin@mail.com",
+  "email": "adil@mail.com",
   "password": "ww"
 
 }
