@@ -1,5 +1,6 @@
 package com.bous.calisthenics_app.security;
 
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
+        try{
         String email = jwtUtil.extractUsername(token);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -46,6 +48,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+        }
+        }catch (JwtException | IllegalArgumentException ex) {
+            // Ongeldig, verlopen, of gemanipuleerd token: negeren en gewoon als
+            // niet-ingelogd verdergaan. SecurityConfig bepaalt daarna alsnog of
+            // dit specifieke endpoint zonder inloggen toegankelijk is.
+            SecurityContextHolder.clearContext();
         }
 
         filterChain.doFilter(request, response);
