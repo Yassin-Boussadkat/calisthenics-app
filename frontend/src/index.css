@@ -1,1 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+    --color-ink: #121316;
+    --color-panel: #1b1d22;
+    --color-line: #2b2e35;
+    --color-paper: #ededf0;
+    --color-mute: #9498a0;
+    --color-power: #ff4b2e;
+    --color-power-dim: #3a241d;
+
+    --font-display: "Archivo Black", sans-serif;
+    --font-body: "Inter", sans-serif;
+}
+
+body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-body);
+}

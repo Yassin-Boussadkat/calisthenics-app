@@ -1,21 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
-import { useAuth } from './context/AuthContext'
-
-function DashboardPlaceholder() {
-    const { user, logout } = useAuth()
-    return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold">Welkom, {user.email}</h1>
-            <p className="text-gray-600">Rol: {user.role}</p>
-            <button onClick={logout} className="mt-4 rounded bg-gray-800 px-4 py-2 text-white">
-                Uitloggen
-            </button>
-        </div>
-    )
-}
+import ExercisesPage from './pages/ExercisesPage.jsx'
+import WorkoutLogsPage from './pages/WorkoutLogsPage.jsx'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
     return (
@@ -26,7 +14,15 @@ export default function App() {
                 path="/exercises"
                 element={
                     <ProtectedRoute>
-                        <DashboardPlaceholder />
+                        <ExercisesPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/workout-logs"
+                element={
+                    <ProtectedRoute>
+                        <WorkoutLogsPage />
                     </ProtectedRoute>
                 }
             />
