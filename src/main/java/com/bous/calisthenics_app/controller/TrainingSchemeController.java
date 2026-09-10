@@ -1,5 +1,6 @@
 package com.bous.calisthenics_app.controller;
 
+import com.bous.calisthenics_app.dto.TrainingSchemeRequest;
 import com.bous.calisthenics_app.entity.DifficultyLevel;
 import com.bous.calisthenics_app.entity.ExerciseType;
 import com.bous.calisthenics_app.entity.TrainingScheme;
@@ -32,6 +33,11 @@ public class TrainingSchemeController {
         return ResponseEntity.ok(trainingSchemeService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TrainingScheme> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(trainingSchemeService.findById(id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         trainingSchemeService.delete(id);
@@ -39,12 +45,12 @@ public class TrainingSchemeController {
     }
 
     @PostMapping
-    public ResponseEntity<TrainingScheme> save(@Valid @RequestBody TrainingScheme trainingScheme) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(trainingSchemeService.save(trainingScheme));
+    public ResponseEntity<TrainingScheme> save(@Valid @RequestBody TrainingSchemeRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(trainingSchemeService.save(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrainingScheme> update(@PathVariable Long id, @Valid @RequestBody TrainingScheme trainingScheme) {
-        return ResponseEntity.ok(trainingSchemeService.update(id, trainingScheme));
+    public ResponseEntity<TrainingScheme> update(@PathVariable Long id, @Valid @RequestBody TrainingSchemeRequest request) {
+        return ResponseEntity.ok(trainingSchemeService.update(id, request));
     }
 }

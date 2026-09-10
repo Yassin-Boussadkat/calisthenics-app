@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
-import ExercisesPage from './pages/ExercisesPage.jsx'
-import WorkoutLogsPage from './pages/WorkoutLogsPage.jsx'
+import SchemaPage from './pages/SchemaPage'
+import ExercisesPage from './pages/ExercisesPage'
+import WorkoutLogsPage from './pages/WorkoutLogsPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
@@ -10,6 +11,22 @@ export default function App() {
         <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route
+                path="/schema"
+                element={
+                    <ProtectedRoute>
+                        <SchemaPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/schemas"
+                element={
+                    <ProtectedRoute>
+                        <SchemaPage />
+                    </ProtectedRoute>
+                }
+            />
             <Route
                 path="/exercises"
                 element={
@@ -26,7 +43,7 @@ export default function App() {
                     </ProtectedRoute>
                 }
             />
-            <Route path="*" element={<Navigate to="/exercises" replace />} />
+            <Route path="*" element={<Navigate to="/schema" replace />} />
         </Routes>
     )
 }

@@ -18,6 +18,7 @@ export default function Navbar() {
                     </div>
                     <nav className="flex gap-6">
                         <NavLink to="/schema" className={linkClass}>Schema</NavLink>
+                        <NavLink to="/schemas" className={linkClass}>Trainingsschema's</NavLink>
                         <NavLink to="/exercises" className={linkClass}>Oefeningen</NavLink>
                         <NavLink to="/workout-logs" className={linkClass}>Mijn logs</NavLink>
                     </nav>
