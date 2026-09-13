@@ -105,7 +105,7 @@ export default function AgendaPage() {
                                 </p>
 
                                 <ul className="mb-3 space-y-2">
-                                    {items.length === 0 && <li className="text-xs text-mute">Niks gepland</li>}
+                                    {items.length === 0 && <li className="text-xs text-mute">Nog geen oefeningen</li>}
                                     {items.map((item) => (
                                         <li key={item.id} className="flex items-start justify-between gap-2">
                       <span className="text-sm text-paper">
@@ -131,22 +131,26 @@ export default function AgendaPage() {
                                             ))}
                                         </select>
                                         <div className="mb-2 flex gap-1">
-                                            <input
-                                                type="number"
-                                                min="1"
-                                                value={form.targetSets}
-                                                onChange={(e) => setForm({ ...form, targetSets: Number(e.target.value) })}
-                                                className="w-1/2 border border-line bg-panel px-2 py-1.5 text-xs text-paper"
-                                                placeholder="Sets"
-                                            />
-                                            <input
-                                                type="number"
-                                                min="1"
-                                                value={form.targetReps}
-                                                onChange={(e) => setForm({ ...form, targetReps: Number(e.target.value) })}
-                                                className="w-1/2 border border-line bg-panel px-2 py-1.5 text-xs text-paper"
-                                                placeholder="Reps"
-                                            />
+                                            <div className="w-1/2">
+                                                <label className="mb-0.5 block text-[10px] text-mute">Sets</label>
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={form.targetSets}
+                                                    onChange={(e) => setForm({ ...form, targetSets: Number(e.target.value) })}
+                                                    className="w-full border border-line bg-panel px-2 py-1.5 text-xs text-paper"
+                                                />
+                                            </div>
+                                            <div className="w-1/2">
+                                                <label className="mb-0.5 block text-[10px] text-mute">Reps</label>
+                                                <input
+                                                    type="number"
+                                                    min="1"
+                                                    value={form.targetReps}
+                                                    onChange={(e) => setForm({ ...form, targetReps: Number(e.target.value) })}
+                                                    className="w-full border border-line bg-panel px-2 py-1.5 text-xs text-paper"
+                                                />
+                                            </div>
                                         </div>
                                         <button
                                             onClick={() => handleAdd(day.key)}
@@ -168,3 +172,4 @@ export default function AgendaPage() {
         </div>
     )
 }
+
