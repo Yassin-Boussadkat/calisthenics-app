@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage'
 import AgendaPage from './pages/AgendaPage'
 import WorkoutPage from './pages/WorkoutPage'
 import HistoryPage from './pages/HistoryPage'
+import StatsPage from './pages/StatsPage'
 import ExercisesPage from './pages/ExercisesPage'
 import WorkoutLogsPage from './pages/WorkoutLogsPage'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -20,6 +21,14 @@ export default function App() {
                 element={
                     <ProtectedRoute>
                         <AgendaPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/stats"
+                element={
+                    <ProtectedRoute>
+                        <StatsPage />
                     </ProtectedRoute>
                 }
             />

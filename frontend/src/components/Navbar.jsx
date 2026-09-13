@@ -14,28 +14,20 @@ export default function Navbar() {
                 <div className="flex items-center gap-8">
                     <Link to="/" className="flex items-center gap-2 text-power">
                         <Logo className="h-5 w-5" />
-                        <span className="font-display text-sm tracking-tight text-paper">
-                            Calisthenics
-                        </span>
+                        <span className="font-display text-sm tracking-tight text-paper">Calisthenics</span>
                     </Link>
-
                     {user && (
                         <nav className="flex gap-6">
-                            <NavLink to="/agenda" className={linkClass}>
-                                Agenda
-                            </NavLink>
-                            <NavLink to="/history" className={linkClass}>
-                                Geschiedenis
-                            </NavLink>
+                            <NavLink to="/agenda" className={linkClass}>Agenda</NavLink>
+                            <NavLink to="/history" className={linkClass}>Geschiedenis</NavLink>
+                            <NavLink to="/stats" className={linkClass}>Statistieken</NavLink>
                         </nav>
                     )}
                 </div>
-
                 <div className="flex items-center gap-3">
-                    {user && (
+                    {user ? (
                         <>
                             <span className="text-sm text-mute">{user.email}</span>
-
                             <button
                                 onClick={logout}
                                 className="rounded-none border border-line px-3 py-1.5 text-xs text-mute transition-colors hover:border-mute hover:text-paper"
@@ -43,6 +35,10 @@ export default function Navbar() {
                                 Uitloggen
                             </button>
                         </>
+                    ) : (
+                        <NavLink to="/login" className="text-sm text-mute hover:text-paper">
+                            Inloggen
+                        </NavLink>
                     )}
                 </div>
             </div>
