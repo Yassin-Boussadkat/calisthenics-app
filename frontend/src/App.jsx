@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import AgendaPage from './pages/AgendaPage'
 import WorkoutPage from './pages/WorkoutPage'
+import HistoryPage from './pages/HistoryPage'
 import ExercisesPage from './pages/ExercisesPage'
 import WorkoutLogsPage from './pages/WorkoutLogsPage'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -19,6 +20,14 @@ export default function App() {
                 element={
                     <ProtectedRoute>
                         <AgendaPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/history"
+                element={
+                    <ProtectedRoute>
+                        <HistoryPage />
                     </ProtectedRoute>
                 }
             />
