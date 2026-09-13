@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import AgendaPage from './pages/AgendaPage'
 import ExercisesPage from './pages/ExercisesPage'
 import WorkoutLogsPage from './pages/WorkoutLogsPage'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -13,18 +14,10 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route
-                path="/schema"
+                path="/agenda"
                 element={
                     <ProtectedRoute>
-                        <SchemaPage />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path="/schemas"
-                element={
-                    <ProtectedRoute>
-                        <SchemaPage />
+                        <AgendaPage />
                     </ProtectedRoute>
                 }
             />

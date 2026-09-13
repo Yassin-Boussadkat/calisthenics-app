@@ -38,7 +38,7 @@ public class ScheduledWorkoutService {
         return scheduledWorkoutRepository.findByUserId(currentUser.getId());
     }
 
-    public void deleteById(Long id, User currentUser) {
+    public void  deleteById(Long id, User currentUser) {
         ScheduledWorkout scheduled = scheduledWorkoutRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("ScheduledWorkout not found."));
 
