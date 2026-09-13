@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import AgendaPage from './pages/AgendaPage'
+import WorkoutPage from './pages/WorkoutPage'
 import ExercisesPage from './pages/ExercisesPage'
 import WorkoutLogsPage from './pages/WorkoutLogsPage'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -18,6 +19,14 @@ export default function App() {
                 element={
                     <ProtectedRoute>
                         <AgendaPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/workout"
+                element={
+                    <ProtectedRoute>
+                        <WorkoutPage />
                     </ProtectedRoute>
                 }
             />
