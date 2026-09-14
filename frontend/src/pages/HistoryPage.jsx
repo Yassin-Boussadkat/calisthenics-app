@@ -48,22 +48,23 @@ function calculateExerciseScore(target, actual) {
     const setsScore = (actualSets / targetSets) * 100
     const repsScore = (actualReps / targetReps) * 100
 
-    if (actualWeight > 0) {
-        const weightScore =
-            targetWeight > 0
-                ? (actualWeight / targetWeight) * 100
-                : 100 + actualWeight * 2
-
+    // Bodyweight -> bodyweight
+    if (targetWeight === 0 && actualWeight === 0) {
         return Math.round(
-            setsScore * 0.4 +
-            repsScore * 0.4 +
-            weightScore * 0.2
+            setsScore * 0.5 +
+            repsScore * 0.5
         )
     }
 
+    const weightScore =
+        targetWeight === 0
+            ? 100 + actualWeight * 2
+            : (actualWeight / targetWeight) * 100
+
     return Math.round(
-        setsScore * 0.5 +
-        repsScore * 0.5
+        setsScore * 0.4 +
+        repsScore * 0.4 +
+        weightScore * 0.2
     )
 }
 
