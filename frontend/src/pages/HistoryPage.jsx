@@ -48,7 +48,6 @@ function calculateExerciseScore(target, actual) {
     const setsScore = (actualSets / targetSets) * 100
     const repsScore = (actualReps / targetReps) * 100
 
-    // Bodyweight -> bodyweight
     if (targetWeight === 0 && actualWeight === 0) {
         return Math.round(
             setsScore * 0.5 +
@@ -247,7 +246,6 @@ export default function HistoryPage() {
                                         )}
                                     </div>
 
-                                    {/* Summary */}
                                     {percentage !== null && (
                                         <div className="mb-6 grid grid-cols-2 gap-3">
                                             <div className="border border-line bg-ink p-3">
