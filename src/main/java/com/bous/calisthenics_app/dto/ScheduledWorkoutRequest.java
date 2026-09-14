@@ -2,6 +2,7 @@ package com.bous.calisthenics_app.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 import java.time.DayOfWeek;
@@ -20,4 +21,7 @@ public class ScheduledWorkoutRequest {
 
     @Min(value = 1, message = "Reps moet minimaal 1 zijn")
     private int targetReps;
+
+    @PositiveOrZero(message = "Gewicht kan niet negatief zijn")
+    private double targetWeightKg;
 }

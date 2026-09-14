@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getMySchedule, createScheduledWorkout, deleteScheduledWorkout } from '../api/scheduledWorkouts'
+import { getMyLogs } from '../api/workoutLogs'
 import { getExercises } from '../api/exercises'
 import Navbar from '../components/Navbar'
 
@@ -19,33 +20,52 @@ function getTodayKey() {
     return DAYS[jsDay === 0 ? 6 : jsDay - 1].key
 }
 
+function todayDateString() {
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 export default function AgendaPage() {
     const [schedule, setSchedule] = useState([])
+    const [todaysLogs, setTodaysLogs] = useState([])
     const [exercises, setExercises] = useState([])
     const [error, setError] = useState('')
     const [addingFor, setAddingFor] = useState(null)
-    const [form, setForm] = useState({ exerciseId: '', targetSets: 3, targetReps: 10 })
+    const [form, setForm] = useState({ exerciseId: '', targetSets: 3, targetReps: 10, targetWeightKg: 0 })
 
     const todayKey = getTodayKey()
     const todayLabel = DAYS.find((d) => d.key === todayKey).label
     const todaysWorkout = schedule.filter((s) => s.dayOfWeek === todayKey)
 
+    const completedToday =
+        todaysWorkout.length > 0 &&
+        todaysWorkout.every((item) =>
+            todaysLogs.some((log) => log.exercise?.id === item.exercise?.id)
+        )
+
     useEffect(() => {
-        loadSchedule()
-        getExercises().then(setExercises).catch(() => {})
+        loadAll()
     }, [])
 
-    function loadSchedule() {
-        getMySchedule().then(setSchedule).catch(() => setError('Kon agenda niet laden.'))
+    function loadAll() {
+        Promise.all([getMySchedule(), getMyLogs(), getExercises()])
+            .then(([scheduleData, logsData, exercisesData]) => {
+                setSchedule(scheduleData)
+                setTodaysLogs(logsData.filter((l) => l.date === todayDateString()))
+                setExercises(exercisesData)
+            })
+            .catch(() => setError('Kon agenda niet laden.'))
     }
 
     async function handleAdd(dayKey) {
         if (!form.exerciseId) return
         try {
-            await createScheduledWorkout(Number(form.exerciseId), dayKey, form.targetSets, form.targetReps)
+            await createScheduledWorkout(
+                Number(form.exerciseId), dayKey, form.targetSets, form.targetReps, form.targetWeightKg
+            )
             setAddingFor(null)
-            setForm({ exerciseId: '', targetSets: 3, targetReps: 10 })
-            loadSchedule()
+            setForm({ exerciseId: '', targetSets: 3, targetReps: 10, targetWeightKg: 0 })
+            loadAll()
         } catch (err) {
             setError(err.response?.data?.message || 'Toevoegen mislukt.')
         }
@@ -53,7 +73,7 @@ export default function AgendaPage() {
 
     async function handleRemove(id) {
         await deleteScheduledWorkout(id)
-        loadSchedule()
+        loadAll()
     }
 
     return (
@@ -79,16 +99,23 @@ export default function AgendaPage() {
                                         {item.exercise?.name}{' '}
                                         <span className="text-sm text-mute">
                       — {item.targetSets}×{item.targetReps}
+                                            {item.targetWeightKg > 0 ? ` @ ${item.targetWeightKg}kg` : ''}
                     </span>
                                     </li>
                                 ))}
                             </ul>
-                            <Link
-                                to="/workout"
-                                className="inline-block bg-power px-5 py-2.5 text-sm font-medium text-ink hover:opacity-90"
-                            >
-                                Start workout
-                            </Link>
+                            {completedToday ? (
+                                <p className="border border-power/30 bg-power-dim px-4 py-2.5 text-sm text-power">
+                                    ✓ Je hebt de training van vandaag al gedaan.
+                                </p>
+                            ) : (
+                                <Link
+                                    to="/workout"
+                                    className="inline-block bg-power px-5 py-2.5 text-sm font-medium text-ink hover:opacity-90"
+                                >
+                                    Start workout
+                                </Link>
+                            )}
                         </>
                     )}
                 </div>
@@ -111,7 +138,10 @@ export default function AgendaPage() {
                       <span className="text-sm text-paper">
                         {item.exercise?.name}
                           <br />
-                        <span className="text-xs text-mute">{item.targetSets}×{item.targetReps}</span>
+                        <span className="text-xs text-mute">
+                          {item.targetSets}×{item.targetReps}
+                            {item.targetWeightKg > 0 ? ` @ ${item.targetWeightKg}kg` : ''}
+                        </span>
                       </span>
                                             <button onClick={() => handleRemove(item.id)} className="text-xs text-mute hover:text-power">×</button>
                                         </li>
@@ -131,7 +161,7 @@ export default function AgendaPage() {
                                             ))}
                                         </select>
                                         <div className="mb-2 flex gap-1">
-                                            <div className="w-1/2">
+                                            <div className="w-1/3">
                                                 <label className="mb-0.5 block text-[10px] text-mute">Sets</label>
                                                 <input
                                                     type="number"
@@ -141,13 +171,23 @@ export default function AgendaPage() {
                                                     className="w-full border border-line bg-panel px-2 py-1.5 text-xs text-paper"
                                                 />
                                             </div>
-                                            <div className="w-1/2">
+                                            <div className="w-1/3">
                                                 <label className="mb-0.5 block text-[10px] text-mute">Reps</label>
                                                 <input
                                                     type="number"
                                                     min="1"
                                                     value={form.targetReps}
                                                     onChange={(e) => setForm({ ...form, targetReps: Number(e.target.value) })}
+                                                    className="w-full border border-line bg-panel px-2 py-1.5 text-xs text-paper"
+                                                />
+                                            </div>
+                                            <div className="w-1/3">
+                                                <label className="mb-0.5 block text-[10px] text-mute">Kg</label>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    value={form.targetWeightKg}
+                                                    onChange={(e) => setForm({ ...form, targetWeightKg: Number(e.target.value) })}
                                                     className="w-full border border-line bg-panel px-2 py-1.5 text-xs text-paper"
                                                 />
                                             </div>
@@ -172,4 +212,5 @@ export default function AgendaPage() {
         </div>
     )
 }
+
 

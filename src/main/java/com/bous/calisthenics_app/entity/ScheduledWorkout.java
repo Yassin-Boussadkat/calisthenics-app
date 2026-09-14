@@ -28,5 +28,6 @@ public class ScheduledWorkout {
 
     private int targetSets;
     private int targetReps;
+    private double targetWeightKg;
 }
 
