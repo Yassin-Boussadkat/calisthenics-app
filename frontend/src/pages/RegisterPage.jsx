@@ -17,7 +17,7 @@ export default function RegisterPage() {
         setError('')
         try {
             await register(firstName, lastName, email, password)
-            navigate('/exercises')
+            navigate('/agenda')
         } catch (err) {
             setError(err.response?.data?.message || 'Registreren is mislukt.')
         }

@@ -44,13 +44,6 @@ export default function HomePage() {
                             >
                                 Gratis beginnen
                             </Link>
-
-                            <Link
-                                to="/login"
-                                className="border border-line px-5 py-2.5 text-sm text-paper hover:border-mute"
-                            >
-                                Inloggen
-                            </Link>
                         </>
                     )}
                 </div>
