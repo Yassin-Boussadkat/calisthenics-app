@@ -15,7 +15,7 @@ export default function LoginPage() {
         setError('')
         try {
             await login(email, password)
-            navigate('/exercises')
+            navigate('/agenda')
         } catch {
             setError('Ongeldige email of wachtwoord.')
         }
