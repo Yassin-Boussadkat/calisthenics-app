@@ -21,6 +21,9 @@ export default function Navbar() {
                             <NavLink to="/agenda" className={linkClass}>Agenda</NavLink>
                             <NavLink to="/history" className={linkClass}>Geschiedenis</NavLink>
                             <NavLink to="/stats" className={linkClass}>Statistieken</NavLink>
+                            {user.role === 'ADMIN' && (
+                                <NavLink to="/exercises" className={linkClass}>Oefeningen beheren</NavLink>
+                            )}
                         </nav>
                     )}
                 </div>

@@ -34,7 +34,7 @@ export default function LoginPage() {
                     Elke sessie ook.
                 </h1>
                 <p className="max-w-xs text-sm text-mute">
-                    Log je workouts, volg je progressie, en bouw kracht op zonder gewichten.
+                    Log je workouts, volg je progressie, en bouw kracht en spiermassa op.
                 </p>
             </div>
 
