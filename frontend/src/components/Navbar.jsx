@@ -24,23 +24,17 @@ export default function Navbar() {
                         </nav>
                     )}
                 </div>
-                <div className="flex items-center gap-3">
-                    {user ? (
-                        <>
-                            <span className="text-sm text-mute">{user.email}</span>
-                            <button
-                                onClick={logout}
-                                className="rounded-none border border-line px-3 py-1.5 text-xs text-mute transition-colors hover:border-mute hover:text-paper"
-                            >
-                                Uitloggen
-                            </button>
-                        </>
-                    ) : (
-                        <NavLink to="/login" className="text-sm text-mute hover:text-paper">
-                            Inloggen
-                        </NavLink>
-                    )}
-                </div>
+                {user && (
+                    <div className="flex items-center gap-3">
+                        <span className="text-sm text-mute">{user.email}</span>
+                        <button
+                            onClick={logout}
+                            className="rounded-none border border-line px-3 py-1.5 text-xs text-mute transition-colors hover:border-mute hover:text-paper"
+                        >
+                            Uitloggen
+                        </button>
+                    </div>
+                )}
             </div>
         </header>
     )

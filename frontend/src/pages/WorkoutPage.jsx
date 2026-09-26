@@ -63,7 +63,6 @@ export default function WorkoutPage() {
         }
     }
 
-    // Nog aan het laden
     if (planned === null) {
         return (
             <div className="min-h-screen">
@@ -73,7 +72,7 @@ export default function WorkoutPage() {
         )
     }
 
-    // Niks gepland vandaag: hier is niks te doen
+
     if (planned.length === 0) {
         return <Navigate to="/agenda" replace />
     }

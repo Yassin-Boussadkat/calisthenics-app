@@ -174,7 +174,7 @@ export default function AgendaPage() {
                                     </div>
 
                                     <p className="mt-2 text-sm text-mute">
-                                        Goed gewerkt. Rust uit en herstel goed.
+                                        Goed gewerkt. Rust uit en herstel.
                                     </p>
                                 </>
                             ) : (

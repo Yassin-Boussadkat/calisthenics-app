@@ -18,9 +18,9 @@ export default function HomePage() {
 
                 <p className="mt-6 max-w-xl text-base text-mute">
                     Calisthenics draait niet alleen om harder trainen, maar ook om
-                    consistentie en progressie. Kies een trainingsschema dat past bij
-                    jouw niveau, volg je dagelijkse planning en leg vast wat je
-                    daadwerkelijk hebt uitgevoerd.
+                    consistentie en progressie. Bouw je eigen weekagenda met de
+                    oefeningen die bij jou passen, volg je dagelijkse planning en
+                    leg vast wat je daadwerkelijk hebt uitgevoerd.
                 </p>
 
                 <p className="mt-4 max-w-xl text-base text-mute">
@@ -44,6 +44,12 @@ export default function HomePage() {
                             >
                                 Gratis beginnen
                             </Link>
+                            <Link
+                                to="/login"
+                                className="border border-line px-5 py-2.5 text-sm text-paper hover:border-mute"
+                            >
+                                Inloggen
+                            </Link>
                         </>
                     )}
                 </div>
@@ -56,13 +62,13 @@ export default function HomePage() {
                         <p className="font-display text-3xl text-power">01</p>
 
                         <h3 className="mt-2 font-medium text-paper">
-                            Kies je trainingsschema
+                            Bouw je eigen agenda
                         </h3>
 
                         <p className="mt-1 text-sm text-mute">
-                            Kies een schema dat aansluit bij jouw niveau en
-                            trainingsdoelen. Bouw een sterke basis of werk toe
-                            naar geavanceerde calisthenics-skills.
+                            Zet zelf oefeningen op de dagen die jou uitkomen — sets,
+                            reps en gewicht erbij. Van een simpele basis tot een
+                            opbouw richting geavanceerde skills.
                         </p>
                     </div>
 
