@@ -7,14 +7,20 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(() => {
         const email = localStorage.getItem('email')
         const role = localStorage.getItem('role')
-        return email ? { email, role } : null
+        const firstName = localStorage.getItem('firstName')
+        return email ? { email, role, firstName } : null
     })
 
     function storeSession(authResponse) {
         localStorage.setItem('token', authResponse.token)
         localStorage.setItem('email', authResponse.email)
         localStorage.setItem('role', authResponse.role)
-        setUser({ email: authResponse.email, role: authResponse.role })
+        localStorage.setItem('firstName', authResponse.firstName)
+        setUser({
+            email: authResponse.email,
+            role: authResponse.role,
+            firstName: authResponse.firstName,
+        })
     }
 
     async function login(email, password) {
@@ -31,6 +37,7 @@ export function AuthProvider({ children }) {
         localStorage.removeItem('token')
         localStorage.removeItem('email')
         localStorage.removeItem('role')
+        localStorage.removeItem('firstName')
         setUser(null)
     }
 

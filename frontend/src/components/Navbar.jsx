@@ -1,44 +1,51 @@
-import { NavLink, Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import Logo from './Logo'
+import { createContext, useContext, useState } from 'react'
+import { login as loginApi, register as registerApi } from '../api/auth'
 
-export default function Navbar() {
-    const { user, logout } = useAuth()
+const AuthContext = createContext(null)
 
-    const linkClass = ({ isActive }) =>
-        `text-sm transition-colors ${isActive ? 'text-paper' : 'text-mute hover:text-paper'}`
+export function AuthProvider({ children }) {
+    const [user, setUser] = useState(() => {
+        const email = localStorage.getItem('email')
+        const role = localStorage.getItem('role')
+        const firstName = localStorage.getItem('firstName')
+        return email ? { email, role, firstName } : null
+    })
 
-    return (
-        <header className="border-b border-line bg-panel">
-            <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-                <div className="flex items-center gap-8">
-                    <Link to="/" className="flex items-center gap-2 text-power">
-                        <Logo className="h-5 w-5" />
-                        <span className="font-display text-sm tracking-tight text-paper">Calisthenics</span>
-                    </Link>
-                    {user && (
-                        <nav className="flex gap-6">
-                            <NavLink to="/agenda" className={linkClass}>Agenda</NavLink>
-                            <NavLink to="/history" className={linkClass}>Geschiedenis</NavLink>
-                            <NavLink to="/stats" className={linkClass}>Statistieken</NavLink>
-                            {user.role === 'ADMIN' && (
-                                <NavLink to="/exercises" className={linkClass}>Oefeningen beheren</NavLink>
-                            )}
-                        </nav>
-                    )}
-                </div>
-                {user && (
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm text-mute">{user.email}</span>
-                        <button
-                            onClick={logout}
-                            className="rounded-none border border-line px-3 py-1.5 text-xs text-mute transition-colors hover:border-mute hover:text-paper"
-                        >
-                            Uitloggen
-                        </button>
-                    </div>
-                )}
-            </div>
-        </header>
-    )
+    function storeSession(authResponse) {
+        localStorage.setItem('token', authResponse.token)
+        localStorage.setItem('email', authResponse.email)
+        localStorage.setItem('role', authResponse.role)
+        localStorage.setItem('firstName', authResponse.firstName)
+        setUser({
+            email: authResponse.email,
+            role: authResponse.role,
+            firstName: authResponse.firstName,
+        })
+    }
+
+    async function login(email, password) {
+        const authResponse = await loginApi(email, password)
+        storeSession(authResponse)
+    }
+
+    async function register(firstName, lastName, email, password) {
+        const authResponse = await registerApi(firstName, lastName, email, password)
+        storeSession(authResponse)
+    }
+
+    function logout() {
+        localStorage.removeItem('token')
+        localStorage.removeItem('email')
+        localStorage.removeItem('role')
+        localStorage.removeItem('firstName')
+        setUser(null)
+    }
+
+    const value = { user, login, register, logout }
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export function useAuth() {
+    return useContext(AuthContext)
 }

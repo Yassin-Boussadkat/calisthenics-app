@@ -39,7 +39,7 @@ public class AuthService {
         userRepository.save(user);
 
         String token = jwtUtil.generateToken(user);
-        return new AuthResponse(token, user.getEmail(), user.getRole().name());
+        return new AuthResponse(token, user.getEmail(), user.getRole().name(), user.getFirstName());
     }
 
     public AuthResponse login(LoginRequest loginRequest){
@@ -48,7 +48,7 @@ public class AuthService {
         User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Onjuiste inloggegevens."));
 
         String token = jwtUtil.generateToken(user);
-        return new AuthResponse(token,user.getEmail(),user.getRole().name());
+        return new AuthResponse(token,user.getEmail(),user.getRole().name(),  user.getFirstName());
 
     }
 
